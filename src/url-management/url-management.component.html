@@ -1,0 +1,50 @@
+<div class="page-wrapper">
+  <h1 class="main-heading">Tiny URL</h1>
+
+  <!-- Top Card: Generator -->
+  <div class="card generator-card">
+    <div class="form-row">
+      <input 
+        type="text" 
+        class="main-input" 
+        placeholder="Enter URL to shorten" 
+        [(ngModel)]="urlToShorten"
+      />
+      <div class="checkbox-group">
+        <input type="checkbox" id="privateCheck" [(ngModel)]="isPrivateChecked" />
+        <label for="privateCheck">IsPrivate</label>
+      </div>
+    </div>
+    <button class="btn-generate" (click)="generateUrl()">Generate</button>
+  </div>
+
+  <!-- Bottom Section: List -->
+  <div class="list-section">
+    <h2 class="sub-heading">Public URLs</h2>
+    
+    <div class="search-container">
+      <input 
+        type="text" 
+        class="search-input" 
+        placeholder="Search URLs..." 
+        [(ngModel)]="searchQuery"
+      />
+    </div>
+
+    <div class="url-list">
+      <div class="url-item-card" *ngFor="let item of publicUrls">
+        <div class="url-info">
+          <a [href]="item.originalUrl" (click)="clickUrl(item.id)" target="_blank" class="short-link">{{ item.shortUrl }}</a>
+          <span class="long-link">{{ item.originalUrl }}</span>
+        </div>
+
+        <div class="action-badges">
+          <button class="btn-copy" (click)="copyUrl(item.shortUrl)">Copy</button>
+          <span class="click-badge">{{ item.clickCount || 0 }} clicks</span>
+        </div>
+
+        <button class="btn-delete" (click)="deleteUrl(item.id)">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
